@@ -43,7 +43,7 @@
       function makeApiCall() {
         gapi.client.load('plus', 'v1', function() {
           var request = gapi.client.plus.activities.list({
-            'userId': '108086881826934773478'
+            'userId': '108086881826934773478',
             'collection': 'public'
             
           });
@@ -55,7 +55,7 @@
                 el.innerHTML = resp.items[i].title + "<a href='" + resp.items[i].url + "'>Link a la actividad</a>";
                 
                 if(resp.items[i].location){
-                    el.innerHTML += "Coordenadas: " + resp.items[i].location.position.latitude + " , " + resp.items[i].location.position.longitude;
+                    el.innerHTML += "  Coordenadas: " + resp.items[i].location.position.latitude + " , " + resp.items[i].location.position.longitude;
                 }
                 actividades.appendChild(el);
             }
@@ -66,6 +66,6 @@
     </script>
     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
     <div id="content"></div>
-    <p>Retrieves your profile name (and picture) using the Google Plus API.</p>
+    
   </body>
 </html>
