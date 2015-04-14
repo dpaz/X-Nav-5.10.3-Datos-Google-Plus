@@ -31,7 +31,7 @@
       // The provided key works for this sample only when run from
       // https://google-api-javascript-client.googlecode.com/hg/samples/authSample.html
       // To use in your own application, replace this API key with your own.
-      var apiKey = '';
+      var apiKey = 'AIzaSyAYAlvtjhNcojU-KYW2NAeUWkbVqiOO5pE';
 
       // Use a button to handle authentication the first time.
       function handleClientLoad() {
@@ -42,19 +42,24 @@
       // Load the API and make an API call.  Display the results on the screen.
       function makeApiCall() {
         gapi.client.load('plus', 'v1', function() {
-          var request = gapi.client.plus.people.get({
-            'userId': ''
-            // For instance: 
-            // 'userId': '+GregorioRobles'
+          var request = gapi.client.plus.activities.list({
+            'userId': '108086881826934773478'
+            'collection': 'public'
+            
           });
           request.execute(function(resp) {
-            var heading = document.createElement('h4');
-            var image = document.createElement('img');
-            image.src = resp.image.url;
-            heading.appendChild(image);
-            heading.appendChild(document.createTextNode(resp.displayName));
-
-            document.getElementById('content').appendChild(heading);
+            var actividades = document.createElement('ul');
+            
+            for (i in resp.items){
+                var el = document.createElement('li');
+                el.innerHTML = resp.items[i].title + "<a href='" + resp.items[i].url + "'>Link a la actividad</a>";
+                
+                if(resp.items[i].location){
+                    el.innerHTML += "Coordenadas: " + resp.items[i].location.position.latitude + " , " + resp.items[i].location.position.longitude;
+                }
+                actividades.appendChild(el);
+            }
+            document.getElementById('content').appendChild(actividades);
           });
         });
       }
